@@ -5,17 +5,60 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CourseProject"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Padding" Value="10"></Setter>
+            <Setter Property="Background" Value="#F0F0F0"></Setter>
+            <Setter Property="Margin" Value="0"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="BorderBrush" Value="LightGray"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewColumnHeader">
+                        <Border Background="{TemplateBinding Background}" Padding="10" Margin="0, 0, 5, 0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="Padding" Value="0"></Setter>
+            <Setter Property="Margin" Value="0"></Setter>
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Button Grid.Column="0" Grid.Row="0" Content="Add Item" Margin="10,10,10,10" Click="ButtonBase_OnClick"></Button>
-        <ListView Grid.Column="0" Grid.Row="1" Name="listViewItems"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <ListView Grid.Column="0" Grid.Row="1" Name="ListViewItems" ItemsSource="{Binding Path=Items}"
+                  AlternationCount="2">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Height" Value="40"></Setter>
+                    <Style.Triggers>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                            <Setter Property="Background" Value="White"></Setter>
+                        </Trigger>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="#F0F0F0"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
-                <GridView>
-                    
+                <GridView AllowsColumnReorder="True">
+                    <GridViewColumn Header="Description" Width="600" DisplayMemberBinding="{Binding Description}" ></GridViewColumn>
+                    <GridViewColumn Header="Amount" Width="200" DisplayMemberBinding="{Binding Amount}"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
