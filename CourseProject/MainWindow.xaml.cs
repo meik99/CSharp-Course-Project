@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace CourseProject
 {
@@ -10,7 +11,7 @@ namespace CourseProject
         public MainWindow()
         {
             InitializeComponent();
-            
+            Navigator.Instance.SourceFrame = frame;
         }
 
         private void OnAddItemClick(object sender, MouseButtonEventArgs e)

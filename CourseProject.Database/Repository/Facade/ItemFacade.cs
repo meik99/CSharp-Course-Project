@@ -8,11 +8,11 @@ namespace CourseProject.Database.Repository.Facade
 {
     public class ItemFacade
     {
-        private IItemRepository _itemRepository;
+        private static IItemRepository _itemRepository;
 
         public ItemFacade(IItemRepository repository)
         {
-            this._itemRepository = 
+            _itemRepository ??= 
                 repository ?? 
                 throw new NullReferenceException($"{nameof(repository)} must not be null");
         }

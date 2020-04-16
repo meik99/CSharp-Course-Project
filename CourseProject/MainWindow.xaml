@@ -6,25 +6,6 @@
         xmlns:local="clr-namespace:CourseProject"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-        </Grid.RowDefinitions>
-        <ListView Grid.Column="0" Grid.Row="0" Name="listViewItems"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Add Item" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                           MouseLeftButtonUp="OnAddItemClick">
-                    
-                </TextBlock>
-            </Grid>
-        </ListView>
-        <Button Grid.Column="0" Grid.Row="1" Content="Placeholder" Margin="10,10,10,10"></Button>
-    </Grid>
+        
+        <Frame Name="frame" Source="ListItemControl.xaml"></Frame>
 </Window>

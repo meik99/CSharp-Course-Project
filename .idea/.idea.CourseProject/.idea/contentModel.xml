@@ -10,15 +10,24 @@
         <e p="App.xaml.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="CourseProject.csproj" t="IncludeRecursive" />
+        <e p="ListItemControl.xaml" t="Include" />
+        <e p="ListItemControl.xaml.cs" t="Include" />
         <e p="MainWindow.xaml" t="Include" />
         <e p="MainWindow.xaml.cs" t="Include" />
+        <e p="ManageItemControl.xaml" t="Include" />
+        <e p="ManageItemControl.xaml.cs" t="Include" />
+        <e p="ManageItemViewModel.cs" t="Include" />
+        <e p="Navigator.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="App.g.cs" t="Include" />
+            <e p="ListItemControl.g.cs" t="Include" />
             <e p="MainWindow.g.cs" t="Include" />
+            <e p="ManageItemControl.g.cs" t="Include" />
           </e>
         </e>
         <e p="Properties" t="Include">
+          <e p="Annotations.cs" t="Include" />
           <e p="AssemblyInfo.cs" t="Include" />
           <e p="Resources.Designer.cs" t="Include" />
           <e p="Resources.resx" t="Include" />
