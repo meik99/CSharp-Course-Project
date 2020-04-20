@@ -22,21 +22,11 @@ namespace CourseProject.Database.Repository.Memory
 
         public Task<IItem> Insert(IItem entity)
         {
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
+            
             var task = new Task<IItem>(() =>
             {
-                bool hasToken = false;
-                int tries = 0;
-
-                do
-                {
-                    if (tries > MAX_TRIES)
-                    {
-                        throw new Exception("Could not acquire lock");
-                    }
-                    
-                    tries++;
-                    _spinLock.Enter(ref hasToken);
-                } while (!hasToken);
+                Lock();
                 
                 int nextId = _items.Any() ? _items.Max(item => item.Id) + 1 : 1;
                 var result = new ItemBuilder()
@@ -45,12 +35,61 @@ namespace CourseProject.Database.Repository.Memory
                     .Build();
                 
                 _items.Add(result);
-                _spinLock.Exit();
+                _items.Sort((a,b) => a.Id.CompareTo(b.Id));
+                
+                Unlock();
 
                 return result;
             });
             
             return task;
+        }
+
+        public Task<IItem> Update(IItem entity)
+        {
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
+            
+            return new Task<IItem>(() =>
+            {
+                var item = _items.Find(i => i.Id == entity.Id);
+
+                if (item == null)
+                {
+                    return null;
+                }
+                
+                Lock();
+
+                _items.Remove(item);
+                _items.Add(entity);
+                _items.Sort((a,b) => a.Id.CompareTo(b.Id));
+                
+                Unlock();
+                
+                return entity;
+            });
+        }
+
+        private void Lock()
+        {
+            bool hasToken = false;
+            int tries = 0;
+
+            do
+            {
+                if (tries > MAX_TRIES)
+                {
+                    throw new Exception("Could not acquire lock");
+                }
+                    
+                tries++;
+                _spinLock.Enter(ref hasToken);
+            } while (!hasToken);
+        }
+
+        private void Unlock()
+        {
+            _spinLock.Exit();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace CourseProject
             get => _amount.ToString(CultureInfo.InvariantCulture);
             set
             {
-                if (value.Contains("."))
+                if (value != null && value.Contains("."))
                 {
                     value = value.Replace(".", ",");
                 }
@@ -52,5 +52,7 @@ namespace CourseProject
                 }  
             } 
         }
+
+        public int Id { get; set; }
     }
 }

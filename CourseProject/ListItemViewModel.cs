@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Navigation;
 using CourseProject.Annotations;
 using CourseProject.Common.Contract;
 
@@ -17,7 +18,8 @@ namespace CourseProject
         }
         
         private readonly List<IItem> _items = new List<IItem>();
-
+        private List<IItem> _selectedItems = null;
+        
         public List<IItem> Items 
         { 
             get => _items;
@@ -30,6 +32,21 @@ namespace CourseProject
                     OnPropertyChanged(nameof(Items));
                 }
             }
-        }    
+        }
+
+        public List<IItem> SelectedItems
+        {
+            get => _selectedItems;
+            set
+            {
+                _selectedItems = value;
+                OnPropertyChanged(nameof(SelectedItems));
+                OnPropertyChanged(nameof(IsModifyable));
+                OnPropertyChanged(nameof(IsDeleteable));
+            }
+        }
+
+        public bool IsModifyable => _selectedItems != null && _selectedItems.Count == 1;
+        public bool IsDeleteable => _selectedItems != null && _selectedItems.Count > 0;
     }
 }

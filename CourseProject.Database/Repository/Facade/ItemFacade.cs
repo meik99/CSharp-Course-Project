@@ -28,5 +28,10 @@ namespace CourseProject.Database.Repository.Facade
         {
             return _itemRepository.Insert(entity);
         }
+
+        public Task<IItem> Update(IItem entity)
+        {
+            return _itemRepository.Update(entity);
+        }
     }
 }

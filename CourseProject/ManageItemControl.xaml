@@ -44,7 +44,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Content="Cancel" Grid.Row="1" Grid.Column="0" Click="OnCancelClick"></Button>
-            <Button Content="Add" Grid.Row="1" Grid.Column="1" Click="OnAddClick"></Button>
+            <Button Content="Save" Grid.Row="1" Grid.Column="1" Click="OnSaveClick"></Button>
         </Grid>
     </Grid>
 </UserControl>

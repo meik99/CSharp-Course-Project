@@ -32,6 +32,9 @@
             <Setter Property="Padding" Value="0"></Setter>
             <Setter Property="Margin" Value="0"></Setter>
         </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="10,10,10,10"></Setter>
+        </Style>
     </UserControl.Resources>
     
     <Grid>
@@ -39,8 +42,7 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" Content="Add Item" Margin="10,10,10,10" Click="ButtonBase_OnClick"></Button>
-        <ListView Grid.Column="0" Grid.Row="1" Name="ListViewItems" ItemsSource="{Binding Path=Items}"
+        <ListView Grid.Column="0" Grid.Row="1" Name="ListViewItems" ItemsSource="{Binding Path=Items}" SelectionChanged="OnItemSelected"
                   AlternationCount="2">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -62,5 +64,18 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Button Content="Add" Grid.Column="0" Click="OnAddClick"></Button>
+            <Button Content="Delete" IsEnabled="{Binding Path=IsDeleteable}" Grid.Column="1" Click="OnDeleteClick"></Button>
+            <Button Content="Modify" IsEnabled="{Binding Path=IsModifyable}" Grid.Column="2" Click="OnModifyClick"></Button>
+            <Label Content="Sum: 0"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        </Grid>
     </Grid>
 </UserControl>

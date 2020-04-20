@@ -40,6 +40,11 @@ namespace CourseProject.Test.Database.Facade.Memory
                     return item;
                 });
             }
+
+            public Task<IItem> Update(IItem entity)
+            {
+                return Insert(entity);
+            }
         }
         
         [Test]
@@ -70,6 +75,22 @@ namespace CourseProject.Test.Database.Facade.Memory
         {
             var facade = new ItemFacade(new MockRepository());
             var task = facade.Insert(new ItemFactory().New());
+            
+            task.Start();
+            task.Wait();
+
+            var item = task.Result;
+            
+            Assert.AreEqual(2, item.Id);
+            Assert.AreEqual(0.0, item.Amount);
+            Assert.AreEqual("", item.Description);
+        }
+        
+        [Test]
+        public void Update()
+        {
+            var facade = new ItemFacade(new MockRepository());
+            var task = facade.Update(new ItemFactory().New());
             
             task.Start();
             task.Wait();
