@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Navigation;
 using CourseProject.Annotations;
@@ -30,6 +33,7 @@ namespace CourseProject
                     _items.Clear();
                     _items.AddRange(value);
                     OnPropertyChanged(nameof(Items));
+                    OnPropertyChanged(nameof(Sum));
                 }
             }
         }
@@ -48,5 +52,6 @@ namespace CourseProject
 
         public bool IsModifyable => _selectedItems != null && _selectedItems.Count == 1;
         public bool IsDeleteable => _selectedItems != null && _selectedItems.Count > 0;
+        public string Sum => $"Sum: {_items.Sum((item => item.Amount)).ToString(CultureInfo.InvariantCulture)}";
     }
 }
