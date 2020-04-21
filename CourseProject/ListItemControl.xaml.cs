@@ -34,7 +34,6 @@ namespace CourseProject
         {
             var task = new ItemFacade().FindAll();
             task.ContinueWith((result) => _viewModel.Items = result.Result);
-            task.Start();
         }
         
         private void OnAddClick(object sender, RoutedEventArgs e)
@@ -51,9 +50,28 @@ namespace CourseProject
 
             var result = MessageBox.Show(text, caption, buttons, icon);
 
-            _viewModel.Items = result switch
+            switch(result)
             {
-                //TODO: Delete Items
+                case MessageBoxResult.Yes:
+                    new Task(async () =>
+                    {
+                        var facade = new ItemFacade();
+                        var itemArray = new IItem[_viewModel.SelectedItems.Count];
+                        _viewModel.SelectedItems.CopyTo(itemArray);
+                        
+                        foreach (var item in itemArray)
+                        {
+                            await facade.Delete(item.Id);
+                        }
+
+                        ListViewItems?.Dispatcher?.Invoke(() =>
+                        {
+                            _viewModel.SelectedItems = null;
+                            _viewModel.Items = facade.FindAll().Result;
+                            ListViewItems.Items.Refresh();
+                        });
+                    }).Start();
+                break;
             };
         }
 

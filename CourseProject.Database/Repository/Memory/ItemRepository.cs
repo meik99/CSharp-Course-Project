@@ -17,7 +17,9 @@ namespace CourseProject.Database.Repository.Memory
         
         public Task<List<IItem>> FindAll()
         {
-            return new Task<List<IItem>>(() => _items);
+            var task = new Task<List<IItem>>(() => _items);
+            task.Start();
+            return task;
         }
 
         public Task<IItem> Insert(IItem entity)
@@ -41,7 +43,7 @@ namespace CourseProject.Database.Repository.Memory
 
                 return result;
             });
-            
+            task.Start();
             return task;
         }
 
@@ -49,7 +51,7 @@ namespace CourseProject.Database.Repository.Memory
         {
             if (entity == null) throw new ArgumentNullException(nameof(entity));
             
-            return new Task<IItem>(() =>
+            var task = new Task<IItem>(() =>
             {
                 var item = _items.Find(i => i.Id == entity.Id);
 
@@ -68,6 +70,23 @@ namespace CourseProject.Database.Repository.Memory
                 
                 return entity;
             });
+            task.Start();
+            return task;
+        }
+
+        public Task Delete(int id)
+        {
+            var task = new Task(() =>
+            {
+                Lock();
+
+                _items.RemoveAll(item => item.Id == id);
+                
+                Unlock();
+            });
+            task.Start();
+            
+            return task;
         }
 
         private void Lock()

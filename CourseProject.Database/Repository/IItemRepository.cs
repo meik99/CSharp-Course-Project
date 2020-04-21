@@ -9,5 +9,6 @@ namespace CourseProject.Database.Repository
         Task<List<IItem>> FindAll();
         Task<IItem> Insert(IItem entity);
         Task<IItem> Update(IItem entity);
+        Task Delete(int id);
     }
 }

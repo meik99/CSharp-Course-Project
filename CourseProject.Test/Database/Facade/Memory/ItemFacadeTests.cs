@@ -45,6 +45,16 @@ namespace CourseProject.Test.Database.Facade.Memory
             {
                 return Insert(entity);
             }
+
+            public Task Delete(int id)
+            {
+                var task = new Task(() =>
+                {
+                });
+                task.Start();
+                
+                return task;
+            }
         }
         
         [Test]
@@ -100,6 +110,13 @@ namespace CourseProject.Test.Database.Facade.Memory
             Assert.AreEqual(2, item.Id);
             Assert.AreEqual(0.0, item.Amount);
             Assert.AreEqual("", item.Description);
+        }
+
+        [Test]
+        public void Delete()
+        {
+            var facade = new ItemFacade(new MockRepository());
+            Assert.IsNotNull(facade.Delete(0));
         }
     }
 }

@@ -65,7 +65,6 @@ namespace CourseProject
                 });
                 
             });
-            task.Start();
         }
     }
 }

@@ -33,5 +33,10 @@ namespace CourseProject.Database.Repository.Facade
         {
             return _itemRepository.Update(entity);
         }
+
+        public Task Delete(int id)
+        {
+            return _itemRepository.Delete(id);
+        }
     }
 }
